@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Renzo | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #0D1B2A;
+      --navy2:   #162032;
+      --navy3:   #1E2D40;
+      --blue:    #2E75B6;
+      --coral:   #E8624A;
+      --coral2:  #FF7A5C;
+      --cream:   #F0EDE8;
+      --muted:   #8A9BB0;
+      --text:    #D4DCE8;
+      --white:   #FFFFFF;
+      --card:    #182535;
+      --border:  rgba(46,117,182,0.18);
+      --radius:  12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(13,27,42,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 62px;
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--coral); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); font-size: 0.875rem; font-weight: 500;
+      text-decoration: none; transition: color 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 100px 5% 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(46,117,182,0.12) 0%, transparent 70%),
+                  radial-gradient(ellipse 40% 40% at 15% 80%, rgba(232,98,74,0.07) 0%, transparent 60%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px),
+                        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 780px; text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--coral);
+      border: 1px solid rgba(232,98,74,0.35);
+      padding: 5px 14px; border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(3.2rem, 8vw, 6rem);
+      font-weight: 700; line-height: 1;
+      color: var(--white); letter-spacing: -2px;
+      margin-bottom: 0.5rem;
+    }
+    .hero-name .cursor {
+      display: inline-block;
+      width: 4px; height: 0.85em;
+      background: var(--coral);
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: blink 1.1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--muted); margin-bottom: 1.2rem;
+      font-weight: 300;
+    }
+    .hero-tagline strong { color: var(--blue); font-weight: 500; }
+    .hero-location {
+      font-size: 0.875rem; color: var(--muted);
+      margin-bottom: 2.4rem;
+    }
+    .hero-location::before { content: "📍 "; }
+    .hero-badges {
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
+      justify-content: center; margin-bottom: 2.8rem;
+    }
+    .badge {
+      background: rgba(46,117,182,0.12);
+      border: 1px solid rgba(46,117,182,0.3);
+      color: var(--blue); font-size: 0.8rem; font-weight: 500;
+      padding: 5px 14px; border-radius: 100px;
+      letter-spacing: 0.02em;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block; padding: 12px 28px;
+      border-radius: 8px; font-size: 0.925rem; font-weight: 600;
+      text-decoration: none; transition: all 0.22s; cursor: pointer;
+      letter-spacing: 0.02em;
+    }
+    .btn-primary {
+      background: var(--coral); color: var(--white);
+      border: 1px solid var(--coral);
+    }
+    .btn-primary:hover { background: var(--coral2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,98,74,0.3); }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--blue); color: var(--white); transform: translateY(-2px); }
+
+    /* ── SECTIONS ── */
+    section { padding: 90px 5%; }
+    .section-inner { max-width: 1000px; margin: 0 auto; }
+    .section-label {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 2.5rem;
+    }
+    .section-label h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      font-weight: 700; color: var(--white); letter-spacing: -0.5px;
+    }
+    .section-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--navy2); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+    }
+    .about-text p {
+      color: var(--text); font-size: 1rem; line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-text strong { color: var(--white); font-weight: 600; }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.2rem;
+      text-align: center;
+    }
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem; font-weight: 700; color: var(--coral);
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--navy); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; }
+    .skill-group {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.4rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-group:hover { border-color: var(--blue); transform: translateY(-3px); }
+    .skill-group-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem; font-weight: 600; color: var(--coral);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 0.9rem;
+    }
+    .skill-list { list-style: none; }
+    .skill-list li {
+      font-size: 0.875rem; color: var(--text);
+      padding: 4px 0; display: flex; align-items: center; gap: 8px;
+    }
+    .skill-list li::before { content: ""; display: block; width: 4px; height: 4px; background: var(--blue); border-radius: 50%; flex-shrink: 0; }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--navy2); }
+    .projects-list { display: flex; flex-direction: column; gap: 1.4rem; }
+    .project-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius);
+      border-left: 3px solid var(--blue);
+      padding: 1.8rem 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: default;
+    }
+    .project-card:hover { border-left-color: var(--coral); transform: translateX(4px); }
+    .project-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.8rem; }
+    .project-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem; font-weight: 700; color: var(--white);
+    }
+    .project-type {
+      font-size: 0.75rem; font-weight: 600; color: var(--blue);
+      background: rgba(46,117,182,0.12); border: 1px solid rgba(46,117,182,0.25);
+      padding: 3px 10px; border-radius: 100px; white-space: nowrap;
+    }
+    .project-desc { font-size: 0.925rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.7; }
+    .project-bullets { list-style: none; margin-bottom: 1rem; }
+    .project-bullets li {
+      font-size: 0.875rem; color: var(--text);
+      padding: 3px 0; display: flex; gap: 10px;
+    }
+    .project-bullets li::before { content: "→"; color: var(--coral); flex-shrink: 0; font-size: 0.8rem; margin-top: 2px; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tech-tag {
+      font-size: 0.75rem; font-weight: 500;
+      background: rgba(13,27,42,0.7); border: 1px solid var(--border);
+      color: var(--muted); padding: 3px 10px; border-radius: 6px;
+    }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--navy); }
+    .edu-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem;
+      display: flex; gap: 1.5rem; align-items: flex-start;
+    }
+    .edu-icon {
+      width: 52px; height: 52px; background: rgba(46,117,182,0.12);
+      border: 1px solid rgba(46,117,182,0.3); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; flex-shrink: 0;
+    }
+    .edu-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem; font-weight: 700; color: var(--white); margin-bottom: 4px;
+    }
+    .edu-school { font-size: 0.925rem; color: var(--blue); margin-bottom: 4px; }
+    .edu-status { font-size: 0.85rem; color: var(--muted); font-style: italic; }
+
+    /* ── INTERESTS ── */
+    #interests { background: var(--navy2); }
+    .interests-grid { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .interest-pill {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 100px; padding: 10px 20px;
+      font-size: 0.9rem; color: var(--text);
+      display: flex; align-items: center; gap: 8px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .interest-pill:hover { border-color: var(--coral); color: var(--white); }
+    .interest-pill span { font-size: 1.1rem; }
+
+    /* ── CONTACT / FOOTER ── */
+    #contact {
+      background: var(--navy3);
+      text-align: center; padding: 80px 5%;
+    }
+    .contact-inner { max-width: 560px; margin: 0 auto; }
+    .contact-inner h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700; color: var(--white); margin-bottom: 1rem;
+    }
+    .contact-inner p { color: var(--muted); margin-bottom: 2rem; }
+    footer {
+      background: var(--navy); text-align: center;
+      padding: 1.5rem 5%;
+      font-size: 0.8rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .project-card { padding: 1.4rem; }
+      .edu-card { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-name .cursor { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Ren<span>zo</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Open to Remote & Freelance Work</div>
+    <h1 class="hero-name">Renzo<span class="cursor"></span></h1>
+    <p class="hero-tagline">
+      <strong>Virtual Assistant</strong> &amp; <strong>CS Student</strong><br>
+      building clean digital solutions for clients worldwide
+    </p>
+    <p class="hero-location">Virac, Catanduanes, Philippines</p>
+    <div class="hero-badges">
+      <span class="badge">Virtual Assistant</span>
+      <span class="badge">Social Media Manager</span>
+      <span class="badge">IT Support</span>
+      <span class="badge">Customer Service</span>
+      <span class="badge">Data Entry</span>
+      <span class="badge">Human Resources</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View My Work</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <h2>About Me</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>Hi! I'm Renzo, a <strong>Computer Science student</strong> at Catanduanes State University with a genuine passion for technology, business, and getting things done right.</p>
+        <p>I combine my tech background with hands-on experience in <strong>virtual assistance, document management, social media, and IT support</strong>. Whether it's building a web application, organizing a business's operations, or managing online communities — I bring the same level of care and precision to every task.</p>
+        <p>I thrive in <strong>remote and self-directed environments</strong>, and I take pride in delivering clean, professional outputs that actually make a difference for the people I work with.</p>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat-card">
+          <div class="stat-number">4+</div>
+          <div class="stat-label">Service Categories</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">Documents Produced</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Research Projects</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Remote Ready</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <h2>Skills & Tools</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Virtual Assistant</div>
+        <ul class="skill-list">
+          <li>Calendar & Email Management</li>
+          <li>Data Entry & File Organization</li>
+          <li>Microsoft Office Suite</li>
+          <li>Google Workspace</li>
+          <li>Trello, Notion, Asana</li>
+        </ul>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Social Media</div>
+        <ul class="skill-list">
+          <li>Content Creation & Scheduling</li>
+          <li>Instagram / Facebook / TikTok</li>
+          <li>Canva & CapCut</li>
+          <li>Community Management</li>
+          <li>Analytics & Reporting</li>
+        </ul>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">IT Support</div>
+        <ul class="skill-list">
+          <li>Technical Troubleshooting</li>
+          <li>Help Desk Support</li>
+          <li>PHP (Laravel) & MySQL</li>
+          <li>Web App Development</li>
+          <li>Hardware & Software Setup</li>
+        </ul>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Customer Service</div>
+        <ul class="skill-list">
+          <li>Live Chat & Email Support</li>
+          <li>CRM Tools (HubSpot, Zoho)</li>
+          <li>Conflict Resolution</li>
+          <li>Client Communication</li>
+          <li>Ticket Management</li>
+        </ul>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Human Resources</div>
+        <ul class="skill-list">
+          <li>Recruitment Support</li>
+          <li>Onboarding Documentation</li>
+          <li>Employee Records</li>
+          <li>WHS Compliance Docs</li>
+          <li>HR Administration</li>
+        </ul>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Development</div>
+        <ul class="skill-list">
+          <li>PHP, Laravel, Livewire</li>
+          <li>JavaScript, HTML, CSS</li>
+          <li>Tailwind CSS, Alpine.js</li>
+          <li>MySQL Databases</li>
+          <li>Git & VS Code</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <h2>Projects & Experience</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-list">
+
+      <div class="project-card reveal">
+        <div class="project-header">
+          <div class="project-title">Laravel Change Request Management System</div>
+          <span class="project-type">Full-Stack Web App</span>
+        </div>
+        <p class="project-desc">Built a complete web-based change request management system featuring an 8-stage lifecycle workflow and role-based access control for Administrator and User roles.</p>
+        <ul class="project-bullets">
+          <li>Designed and developed using Laravel 12, Livewire 3, Tailwind CSS, Alpine.js, and MySQL</li>
+          <li>Implemented full CRUD operations, user authentication, and stage-based request tracking</li>
+          <li>Structured project architecture with clean folder and file management</li>
+        </ul>
+        <div class="project-tech">
+          <span class="tech-tag">PHP</span>
+          <span class="tech-tag">Laravel 12</span>
+          <span class="tech-tag">Livewire 3</span>
+          <span class="tech-tag">Tailwind CSS</span>
+          <span class="tech-tag">Alpine.js</span>
+          <span class="tech-tag">MySQL</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-header">
+          <div class="project-title">Terminalia Catappa Plant Identifier App</div>
+          <span class="project-type">Thesis — AI / Mobile App</span>
+        </div>
+        <p class="project-desc">Developed a mobile application for identifying and classifying medicinal uses of Terminalia catappa plant parts using deep learning — designed for community members and barangay health workers in Virac, Catanduanes.</p>
+        <ul class="project-bullets">
+          <li>Applied MobileNetV2 transfer learning for image classification of plant parts</li>
+          <li>Documented full methodology covering Chapters 1 and 3 of the undergraduate thesis</li>
+          <li>Compiled a 75-source APA 7th edition reference list</li>
+        </ul>
+        <div class="project-tech">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">MobileNetV2</span>
+          <span class="tech-tag">Transfer Learning</span>
+          <span class="tech-tag">Mobile Development</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-header">
+          <div class="project-title">Predictive Analytics for LGU Relief Management</div>
+          <span class="project-type">Research — Machine Learning</span>
+        </div>
+        <p class="project-desc">Proposed a predictive analytics system for the Local Government Unit of Virac, Catanduanes to optimize disaster relief and budget resource allocation using ensemble learning.</p>
+        <ul class="project-bullets">
+          <li>Designed ensemble model using Random Forest, Gradient Boosting, and XGBoost</li>
+          <li>Integrated LDRRMO and CBMS datasets for disaster risk analysis</li>
+          <li>Introduced barangay household data inconsistency as a key methodological contribution</li>
+        </ul>
+        <div class="project-tech">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Random Forest</span>
+          <span class="tech-tag">XGBoost</span>
+          <span class="tech-tag">Gradient Boosting</span>
+          <span class="tech-tag">Data Analysis</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-header">
+          <div class="project-title">SJSK Facility Solutions — Business Documentation Suite</div>
+          <span class="project-type">Freelance / Business Support</span>
+        </div>
+        <p class="project-desc">Built and managed a comprehensive documentation system for a Sydney-based cleaning and facility management company, covering pricing, compliance, onboarding, and branding across 15+ professional documents.</p>
+        <ul class="project-bullets">
+          <li>Created pricing suites across 6 service categories including house cleaning, office, window, and facility management</li>
+          <li>Produced WHS Act 2011 (NSW) compliant documents: incident reports, onboarding packs, equipment registers, and sign-in logs</li>
+          <li>Developed Capability Statement, company brochures, and CRM process/hazard forms</li>
+          <li>Built a multi-tab Excel workbook for client site Sensational Smiles including timesheets and daily diary logs</li>
+        </ul>
+        <div class="project-tech">
+          <span class="tech-tag">Microsoft Word</span>
+          <span class="tech-tag">Microsoft Excel</span>
+          <span class="tech-tag">Canva</span>
+          <span class="tech-tag">WHS Act 2011</span>
+          <span class="tech-tag">Document Design</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <h2>Education</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-icon">🎓</div>
+      <div>
+        <div class="edu-title">Bachelor of Science in Computer Science</div>
+        <div class="edu-school">Catanduanes State University — Virac, Catanduanes, Philippines</div>
+        <div class="edu-status">Currently enrolled — Undergraduate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERESTS -->
+<section id="interests">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <h2>Interests & Hobbies</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="interests-grid reveal">
+      <div class="interest-pill"><span>🎮</span> Gaming</div>
+      <div class="interest-pill"><span>📚</span> Reading</div>
+      <div class="interest-pill"><span>🏃</span> Sports & Fitness</div>
+      <div class="interest-pill"><span>🍳</span> Cooking</div>
+      <div class="interest-pill"><span>🎨</span> Arts & Crafts</div>
+      <div class="interest-pill"><span>💡</span> Entrepreneurship</div>
+      <div class="interest-pill"><span>🛒</span> E-Commerce</div>
+      <div class="interest-pill"><span>📱</span> Social Media</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <h2 class="reveal">Let's Work Together</h2>
+    <p class="reveal">I'm open to remote, freelance, and part-time opportunities worldwide. Whether you need a reliable VA, a social media manager, or IT support — I'd love to hear from you.</p>
+    <div class="reveal">
+      <a href="mailto:your@email.com" class="btn btn-primary">Send Me a Message</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Renzo · Virac, Catanduanes, Philippines · Built with care</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
